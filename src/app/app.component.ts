@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatTable } from '@angular/material';
+
 import { LibrosService } from './libros.service';
+import { MatDialog } from '@angular/material';
+import { AddBookComponent } from './add-libro.component';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +11,37 @@ import { LibrosService } from './libros.service';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'trabajo-final';
+  @ViewChild('booksTable') booksTable: MatTable<any>;
+
   libros: any[] = [];
-  displayedColumns: string[] = ['title', 'autor'];
-  constructor(private librosService: LibrosService) {
-    // console.log(this.librosService.getLibros())
+
+  displayedColumns: string[] = [
+    'title',
+    'autor',
+    'publisher',
+    'edition',
+    'acciones'
+  ];
+  constructor(private librosService: LibrosService, public dialog: MatDialog) {}
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddBookComponent, {
+      width: '50%',
+      data: {
+        title: '',
+        editorial: '',
+        author: '',
+        edition: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.libros = this.librosService.addLibros(result);
+      this.booksTable.renderRows();
+    });
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    console.log(this.librosService.getLibros());
     this.libros = this.librosService.getLibros();
   }
 }

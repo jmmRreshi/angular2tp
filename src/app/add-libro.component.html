@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+  <h3>Agregar nuevo libro.</h3>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nombre" [(ngModel)]="data.title" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Editorial" [(ngModel)]="data.editorial" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Autor" [(ngModel)]="data.author" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Edicion" [(ngModel)]="data.edition" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

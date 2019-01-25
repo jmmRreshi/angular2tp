@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -13,12 +14,15 @@ import { MatTableModule } from '@angular/material/table';
 import { AppComponent } from './app.component';
 
 import { LibrosService } from './libros.service';
+import { AddBookComponent } from './add-libro.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AddBookComponent],
+  entryComponents: [AddBookComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatDialogModule,
     MatInputModule,
     MatCardModule,
