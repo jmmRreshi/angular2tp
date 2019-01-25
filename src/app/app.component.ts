@@ -44,4 +44,10 @@ export class AppComponent {
   ngOnInit(): void {
     this.libros = this.librosService.getLibros();
   }
+
+  eliminarLibro(libro){
+    this.libros = this.librosService.removeLibro(libro);
+    this.booksTable.renderRows();
+  }
 }
+
