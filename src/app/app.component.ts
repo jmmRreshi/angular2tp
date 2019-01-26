@@ -4,6 +4,8 @@ import { MatTable } from '@angular/material';
 import { LibrosService } from './libros.service';
 import { MatDialog } from '@angular/material';
 import { AddBookComponent } from './add-libro.component';
+import { ThrowStmt } from '@angular/compiler';
+import { text } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,7 @@ import { AddBookComponent } from './add-libro.component';
 export class AppComponent {
   @ViewChild('booksTable') booksTable: MatTable<any>;
 
+  filterText: string = "";
   libros: any[] = [];
 
   displayedColumns: string[] = [
@@ -22,7 +25,7 @@ export class AppComponent {
     'edition',
     'acciones'
   ];
-  constructor(private librosService: LibrosService, public dialog: MatDialog) {}
+  constructor(private librosService: LibrosService, public dialog: MatDialog) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddBookComponent, {
@@ -45,8 +48,16 @@ export class AppComponent {
     this.libros = this.librosService.getLibros();
   }
 
-  eliminarLibro(libro){
+  removeFilter(){
+    this.libros = this.librosService.getLibros();
+  }
+
+  eliminarLibro(libro) {
     this.libros = this.librosService.removeLibro(libro);
+    this.booksTable.renderRows();
+  }
+  filtrosLibros() {
+    this.libros = this.librosService.filtrosLibros(this.filterText);
     this.booksTable.renderRows();
   }
 }

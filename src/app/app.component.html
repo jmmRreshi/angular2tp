@@ -3,6 +3,19 @@
   <button color="primary" mat-flat-button (click)="openDialog()">
     Nuevo Libro
   </button>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nombre" [(ngModel)]="filterText" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </form>
+  <button (click)="filtrosLibros()" mat-button>
+    filtrar
+  </button>
+
+  <button (click)="removeFilter()" mat-button>
+    quitar filtros
+  </button>
+
   <br><br>
   <table mat-table [dataSource]="libros" class="mat-elevation-z8" #booksTable>
 
@@ -36,5 +49,7 @@
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
   </table>
+    
 </div>
